@@ -124,24 +124,6 @@ public class LargeMatrix {
 
     }
 
-    private void generateColMatrices(int numRows, int numCols) {
-
-        for(int ci=0; ci<cols; ci++) {
-            int matrixSum = 0;
-            for(int ri=0; ri<numRows; ri++) {
-                SubMatrix rowVector = new SubMatrix(1, numCols, ri, ci);
-                SubMatrix cachedRowVector = subMatrices.get(rowVector);
-                if(cachedRowVector != null) {
-                    matrixSum = matrixSum + cachedRowVector.getSum();
-                }
-            }
-
-            SubMatrix subMatrix = new SubMatrix(numRows, numCols, 0, ci);
-            subMatrix.setSum(matrixSum);
-            subMatrices.put(subMatrix, subMatrix);
-        }
-    }
-
 
     private void computeVerticalBoxSum(int startRowIndex, int startColIndex, int numRows, int numCols) {
 
@@ -160,6 +142,23 @@ public class LargeMatrix {
         subMatrices.put(box, box);
     }
 
+    private void computeHorizontalBoxSum(int startRowIndex, int startColIndex, int numRows, int numCols) {
+
+        int boxSum = 0;
+
+        for(int numColIndex = 0, ci = startColIndex; numColIndex<numCols; numColIndex++, ci++) {
+            SubMatrix colVector = new SubMatrix(numRows, 1, startRowIndex, ci);
+            SubMatrix cachedVector = subMatrices.get(colVector);
+            if(cachedVector != null) {
+                boxSum = boxSum + cachedVector.getSum();
+            }
+        }
+        SubMatrix box = new SubMatrix(numRows, numCols, startRowIndex, startColIndex);
+        box.setSum(boxSum);
+
+        subMatrices.put(box, box);
+    }
+
     private void generateSubMatrices() {
 
         for(int rI = 0; rI<rows; rI++) {
@@ -167,7 +166,13 @@ public class LargeMatrix {
             if(rI+numRows <= rows) {
                 computeVerticalBoxSum(rI, 0, numRows, 2);
             }
+        }
 
+        for(int cI = 0; cI<cols; cI++) {
+            for(int numCols=2; numCols<=cols; numCols++)
+                if(cI+numCols <= cols) {
+                    computeVerticalBoxSum(0, cI, 2, numCols);
+                }
         }
     }
 

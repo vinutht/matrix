@@ -75,7 +75,7 @@ public class LargeMatrixTest {
         };
         try {
             LargeMatrix matrix = new LargeMatrix(m);
-            Assert.assertEquals(15, matrix.numOfSubMatrices());
+            Assert.assertEquals(18, matrix.numOfSubMatrices());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,10 +105,10 @@ public class LargeMatrixTest {
         try {
             LargeMatrix matrix = new LargeMatrix(m);
             SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
-            Assert.assertEquals(15, largestSubMatrix.getSum());
-            Assert.assertEquals(1, largestSubMatrix.getRowIndex());
+            Assert.assertEquals(29, largestSubMatrix.getSum());
+            Assert.assertEquals(0, largestSubMatrix.getRowIndex());
             Assert.assertEquals(0, largestSubMatrix.getColIndex());
-            Assert.assertEquals(1, largestSubMatrix.getRows());
+            Assert.assertEquals(2, largestSubMatrix.getRows());
             Assert.assertEquals(3, largestSubMatrix.getCols());
 
         } catch (Exception e) {
