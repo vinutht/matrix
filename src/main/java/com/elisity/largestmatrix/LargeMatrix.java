@@ -50,17 +50,26 @@ public class LargeMatrix {
         }
     }
 
-
     private void generateRowVectors(int vectSize) {
         for(int ri=0; ri<rows; ri++) {
             for(int ci=0; ci<cols; ci++) {
                 if(ci+vectSize <= cols) {
                     int vectSum = 0;
-                    for(int cellIndex=0; ((cellIndex<vectSize) && (cellIndex+ci<cols)); cellIndex++) {
-                        SubMatrix subMatrix = new SubMatrix(1, 1, ri, ci+cellIndex);
+                    for(int cellIndex=0; ((cellIndex<vectSize) && (cellIndex+ci<cols)); ) {
+                        SubMatrix subMatrix = new SubMatrix(1, vectSize-1, ri, ci+cellIndex);
+                        //Picking the already computed sub-matrix from the cache.
                         SubMatrix cachedSubMatrix = subMatrices.get(subMatrix);
-                        if(cachedSubMatrix != null) {
+
+                        if(cachedSubMatrix == null) {
+                            subMatrix = new SubMatrix(1, 1, ri, ci+cellIndex);
+                            cachedSubMatrix = subMatrices.get(subMatrix);
                             vectSum = vectSum + cachedSubMatrix.getSum();
+                            cellIndex++;
+                        }
+
+                        else if(cachedSubMatrix != null) {
+                            vectSum = vectSum + cachedSubMatrix.getSum();
+                            cellIndex = cellIndex+vectSize-1;
                         }
                     }
                     SubMatrix rowVect = new SubMatrix(1, vectSize, ri, ci);
@@ -71,17 +80,23 @@ public class LargeMatrix {
         }
     }
 
-
     private void generateColVectors(int vectSize) {
         for(int ci=0; ci<cols; ci++) {
             for(int ri=0; ri<rows; ri++) {
                 if(ri+vectSize <= rows) {
                     int vectSum = 0;
-                    for(int cellIndex=0; ((cellIndex<vectSize) && (cellIndex+ri<rows)); cellIndex++) {
-                        SubMatrix subMatrix = new SubMatrix(1, 1, ri+cellIndex, ci);
+                    for(int cellIndex=0; ((cellIndex<vectSize) && (cellIndex+ri<rows)); ) {
+                        SubMatrix subMatrix = new SubMatrix(vectSize-1, 1, ri+cellIndex, ci);
                         SubMatrix cachedSubMatrix = subMatrices.get(subMatrix);
-                        if(cachedSubMatrix != null) {
+                        if(cachedSubMatrix == null) {
+                            subMatrix = new SubMatrix(1, 1, ri+cellIndex, ci);
+                            cachedSubMatrix = subMatrices.get(subMatrix);
                             vectSum = vectSum + cachedSubMatrix.getSum();
+                            cellIndex++;
+                        }
+                        else if(cachedSubMatrix != null) {
+                            vectSum = vectSum + cachedSubMatrix.getSum();
+                            cellIndex = cellIndex+vectSize-1;
                         }
                     }
                     SubMatrix rowVect = new SubMatrix(vectSize, 1, ri, ci);
