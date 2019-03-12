@@ -3,9 +3,9 @@ package com.elisity.largestmatrix;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Matrix {
+public class LargeMatrix {
 
-    //Matrix for which we are computing the largest-sum sub-matrix
+    //LargeMatrix for which we are computing the largest-sum sub-matrix
     private final int[][] internalMatrix;
 
     //List to hold all the sub-matrices
@@ -14,7 +14,7 @@ public class Matrix {
     private final int rows;
     private final int cols;
 
-    public Matrix(int[][] internalMatrix) throws Exception {
+    public LargeMatrix(int[][] internalMatrix) throws Exception {
 
         Objects.requireNonNull(internalMatrix, "Input matrix is mandatory and it cannot be null");
         this.internalMatrix = internalMatrix;
