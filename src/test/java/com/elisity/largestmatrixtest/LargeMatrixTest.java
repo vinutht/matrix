@@ -61,7 +61,7 @@ public class LargeMatrixTest {
         };
         try {
             LargeMatrix matrix = new LargeMatrix(m);
-            Assert.assertEquals(8, matrix.numOfSubMatrices());
+            Assert.assertEquals(9, matrix.numOfSubMatrices());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class LargeMatrixTest {
         };
         try {
             LargeMatrix matrix = new LargeMatrix(m);
-            Assert.assertEquals(15, matrix.numOfSubMatrices());
+            Assert.assertEquals(18, matrix.numOfSubMatrices());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,10 +127,55 @@ public class LargeMatrixTest {
         try {
             LargeMatrix matrix = new LargeMatrix(m);
             SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
-            Assert.assertEquals(19, largestSubMatrix.getSum());
+            Assert.assertEquals(29, largestSubMatrix.getSum());
             Assert.assertEquals(0, largestSubMatrix.getRowIndex());
             Assert.assertEquals(0, largestSubMatrix.getColIndex());
             Assert.assertEquals(3, largestSubMatrix.getRows());
+            Assert.assertEquals(2, largestSubMatrix.getCols());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void getLargestSubMatrix3By2_2Test() {
+        int[][] m = {
+                {10, -2},
+                {-30, 8},
+                {6, 4}
+        };
+        try {
+            LargeMatrix matrix = new LargeMatrix(m);
+            SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
+            Assert.assertEquals(12, largestSubMatrix.getSum());
+            Assert.assertEquals(1, largestSubMatrix.getRowIndex());
+            Assert.assertEquals(1, largestSubMatrix.getColIndex());
+            Assert.assertEquals(2, largestSubMatrix.getRows());
+            Assert.assertEquals(1, largestSubMatrix.getCols());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void getLargestSubMatrix4By2Test() {
+        int[][] m = {
+                {10, -2},
+                {-30, 8},
+                {6, 4},
+                {26, -6}
+        };
+        try {
+            LargeMatrix matrix = new LargeMatrix(m);
+            SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
+            Assert.assertEquals(32, largestSubMatrix.getSum());
+            Assert.assertEquals(2, largestSubMatrix.getRowIndex());
+            Assert.assertEquals(0, largestSubMatrix.getColIndex());
+            Assert.assertEquals(2, largestSubMatrix.getRows());
             Assert.assertEquals(1, largestSubMatrix.getCols());
 
         } catch (Exception e) {
@@ -148,11 +193,31 @@ public class LargeMatrixTest {
         try {
             LargeMatrix matrix = new LargeMatrix(m);
             SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
-            Assert.assertEquals(13, largestSubMatrix.getSum());
+            Assert.assertEquals(19, largestSubMatrix.getSum());
             Assert.assertEquals(0, largestSubMatrix.getRowIndex());
             Assert.assertEquals(0, largestSubMatrix.getColIndex());
             Assert.assertEquals(2, largestSubMatrix.getRows());
-            Assert.assertEquals(1, largestSubMatrix.getCols());
+            Assert.assertEquals(2, largestSubMatrix.getCols());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getLargestSubMatrix2By2_2Test() {
+        int[][] m = {
+                {-4, -2},
+                {3, 8}
+        };
+        try {
+            LargeMatrix matrix = new LargeMatrix(m);
+            SubMatrix largestSubMatrix = matrix.getLargeSubMatrix();
+            Assert.assertEquals(11, largestSubMatrix.getSum());
+            Assert.assertEquals(1, largestSubMatrix.getRowIndex());
+            Assert.assertEquals(0, largestSubMatrix.getColIndex());
+            Assert.assertEquals(1, largestSubMatrix.getRows());
+            Assert.assertEquals(2, largestSubMatrix.getCols());
 
         } catch (Exception e) {
             e.printStackTrace();
